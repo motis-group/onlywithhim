@@ -5,111 +5,636 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Only with Him</title>
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<style>
-			body {
+			@font-face {
+				font-family: 'Season';
+				src: url('season-normal.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+
+			:root {
+				/* Spacing system */
+				--s6: 0.375rem;
+				--s12: 0.75rem;
+				--s16: 1rem;
+				--s18: 1.125rem;
+				--s20: 1.25rem;
+				--s24: 1.5rem;
+				--s28: 1.75rem;
+				--s32: 2rem;
+				--s40: 2.5rem;
+				--s60: 3.75rem;
+				--s80: 5rem;
+				--s96: 6rem;
+				--s120: 7.5rem;
+				--s200: 12.5rem;
+
+				/* Colors - Dark Theme */
+				--light1: #0e0e0e;
+				--main: #0e0e0e;
+				--text-primary: #eaeaea;
+				--text-secondary: #cccccc;
+				--text-tertiary: #999999;
+				--text-muted: #666666;
+
+				/* Border radius */
+				--radius-1: 12px;
+				--radius-2: 16px;
+
+				/* Typography */
+				--text-h1: 3.5rem;
+				--text-h2: 2.5rem;
+				--text-h4: 1.25rem;
+				--text-sidebar: 1rem;
+				--text-sidebar-light: 0.875rem;
+				--text-button: 0.875rem;
+				--text-caption: 0.75rem;
+			}
+
+			* {
 				margin: 0;
-				background-color: #0e0e0e;
-				color: #eaeaea;
-				font-family: 'Inter', sans-serif;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Season', 'Inter', -apple-system, BlinkMacSystemFont,
+					'Segoe UI', sans-serif;
+				background-color: var(--light1);
+				color: var(--text-primary);
+				line-height: 1.6;
+				overflow-x: hidden;
+			}
+
+			.container {
+				min-height: 100vh;
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				gap: var(--s20);
+				max-width: 120rem;
+				margin: 0 auto;
+				padding: 0 var(--s28);
+				position: relative;
+			}
+
+			@media (min-width: 768px) {
+				.container {
+					padding: 0 var(--s40);
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.container {
+					padding: 0 var(--s80);
+				}
+			}
+
+			header {
+				grid-column: 1 / -1;
+				padding: var(--s18) 0;
+				position: sticky;
+				top: 0;
+				background-color: var(--light1);
+				z-index: 50;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			@media (min-width: 768px) {
+				header {
+					position: fixed;
+					top: var(--s200);
+					left: var(--s28);
+					width: auto;
+					background: transparent;
+					border: none;
+					padding: 0;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				header {
+					left: var(--s80);
+				}
+			}
+
+			.header-content {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			@media (min-width: 768px) {
+				.header-content {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: var(--s20);
+				}
+			}
+
+			.logo {
+				font-size: var(--text-sidebar);
+				font-weight: 600;
+				color: var(--text-primary);
+				text-decoration: none;
+			}
+
+			.nav-links {
+				display: none;
+			}
+
+			@media (min-width: 768px) {
+				.nav-links {
+					display: flex;
+					flex-direction: column;
+					gap: var(--s6);
+				}
+
+				.nav-links a {
+					font-size: var(--text-sidebar-light);
+					color: var(--text-muted);
+					text-decoration: none;
+					transition: all 0.3s ease;
+					opacity: 0.7;
+				}
+
+				.nav-links a:hover {
+					opacity: 1;
+					color: var(--text-primary);
+					font-weight: 630;
+				}
+			}
+
+			main {
+				grid-column: 1 / -1;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				height: 100vh;
-				position: relative;
+				min-height: 80vh;
+				padding: var(--s80) 0;
+				text-align: center;
+			}
+
+			@media (min-width: 768px) {
+				main {
+					grid-column: 4 / 12;
+					text-align: left;
+					align-items: flex-start;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				main {
+					grid-column: 4 / 10;
+				}
 			}
 
 			h1 {
-				font-weight: 500;
-				font-size: 3rem;
-				margin-bottom: 0.5rem;
+				font-size: clamp(2.5rem, 8vw, var(--text-h1));
+				font-weight: 600;
+				line-height: 1.1;
+				margin-bottom: var(--s16);
+				color: var(--text-primary);
+				font-variation-settings: 'SERF' 33;
 			}
 
-			p {
-				font-weight: 300;
-				font-size: 1.25rem;
-				max-width: 500px;
-				text-align: center;
+			.subtitle {
+				font-size: var(--text-h4);
+				color: var(--text-tertiary);
+				margin-bottom: var(--s40);
+				max-width: 32rem;
 				line-height: 1.6;
-				margin-bottom: 2rem;
+				opacity: 0.6;
 			}
 
-			a {
-				background: #ffffff;
+			.cta-button {
+				display: inline-flex;
+				align-items: center;
+				background: white;
 				color: #0e0e0e;
 				text-decoration: none;
-				padding: 0.75rem 1.5rem;
-				border-radius: 999px;
+				padding: var(--s16) var(--s32);
+				border-radius: var(--radius-2);
+				font-size: var(--text-button);
 				font-weight: 500;
-				transition: background 0.2s;
+				transition: all 0.2s ease;
+				box-shadow: rgba(255, 255, 255, 0.1) 0px 2px 15px 0px;
 			}
 
-			a:hover {
-				background: #eaeaea;
+			.cta-button:hover {
+				background: #f0f0f0;
+				transform: translateY(-1px);
+				box-shadow: rgba(255, 255, 255, 0.2) 0px 4px 20px 0px;
 			}
 
-			.footer {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				padding: 1rem;
-				background-color: #0e0e0e;
+			/* About Section */
+			.about-section {
+				grid-column: 1 / -1;
+				background: #111111;
+				color: white;
+				padding: var(--s96) var(--s24) var(--s80);
+				margin-top: var(--s120);
+				position: relative;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			@media (min-width: 768px) {
+				.about-section {
+					padding: var(--s96) var(--s60) var(--s80);
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.about-section {
+					padding: var(--s96) var(--s80) var(--s80);
+				}
+			}
+
+			.about-content {
+				max-width: 120rem;
+				margin: 0 auto;
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				gap: var(--s20);
+			}
+
+			.about-text {
+				grid-column: 1 / -1;
+			}
+
+			@media (min-width: 768px) {
+				.about-text {
+					grid-column: 4 / 12;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.about-text {
+					grid-column: 4 / 10;
+				}
+			}
+
+			.about-title {
+				font-size: var(--text-h2);
+				font-weight: 600;
+				margin-bottom: var(--s40);
+				line-height: 1.2;
+			}
+
+			.about-text p {
+				font-size: 1.125rem;
+				line-height: 1.7;
+				margin-bottom: var(--s24);
+				color: rgba(255, 255, 255, 0.9);
+				opacity: 0.6;
+			}
+
+			.about-text em {
+				font-style: italic;
+				color: white;
+				font-weight: 500;
+			}
+
+			.about-text strong {
+				color: white;
+				font-weight: 600;
+			}
+
+			.section-divider {
+				height: 1px;
+				background: rgba(255, 255, 255, 0.2);
+				margin: var(--s60) 0 var(--s40) 0;
+			}
+
+			.section-subtitle {
+				font-size: var(--text-h4);
+				font-weight: 600;
+				margin-bottom: var(--s24);
+				color: white;
+			}
+
+			.final-statement {
 				text-align: center;
-				border-top: 1px solid #222;
+				margin-top: var(--s60);
+				font-style: italic;
+				font-size: 1.125rem;
+				color: rgba(255, 255, 255, 0.8);
+				opacity: 0.6;
+			}
+
+			footer {
+				background: var(--main);
+				color: white;
+				padding: var(--s96) 0 var(--s80);
+				position: relative;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				margin-top: var(--s120);
+				overflow: hidden;
+				width: 100vw;
+				margin-left: calc(-50vw + 50%);
+			}
+
+			.footer-video-background {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+			}
+
+			.footer-video-background video {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.footer-video-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 1;
+			}
+
+			.footer-content {
+				max-width: 120rem;
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				gap: var(--s40);
+				position: relative;
+				z-index: 2;
+				padding: 0 var(--s28);
+			}
+
+			@media (min-width: 768px) {
+				.footer-content {
+					padding: 0 var(--s40);
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.footer-content {
+					padding: 0 var(--s80);
+				}
 			}
 
 			.footer-links {
 				display: flex;
-				justify-content: center;
-				gap: 2rem;
-				margin-bottom: 0.5rem;
+				flex-direction: column;
+				gap: var(--s24);
 			}
 
-			.footer-links a {
-				background: none;
-				color: #666;
+			@media (min-width: 768px) {
+				.footer-links {
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+
+			.footer-nav {
+				display: flex;
+				flex-direction: column;
+				gap: var(--s24);
+			}
+
+			@media (min-width: 768px) {
+				.footer-nav {
+					flex-direction: row;
+					gap: var(--s40);
+				}
+			}
+
+			.footer-nav a {
+				color: rgba(255, 255, 255, 0.8);
 				text-decoration: none;
-				font-size: 0.875rem;
-				font-weight: 300;
-				padding: 0;
-				border-radius: 0;
-				transition: color 0.2s;
+				font-size: var(--text-sidebar-light);
+				transition: color 0.3s ease;
 			}
 
-			.footer-links a:hover {
+			.footer-nav a:hover {
+				color: white;
+			}
+
+			.footer-divider {
+				height: 1px;
+				background: rgba(255, 255, 255, 0.2);
+				width: 100%;
+			}
+
+			.footer-bottom {
+				display: flex;
+				flex-direction: column;
+				gap: var(--s24);
+			}
+
+			@media (min-width: 768px) {
+				.footer-bottom {
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+
+			.footer-copyright {
+				font-size: var(--text-caption);
+				color: rgba(255, 255, 255, 0.6);
+			}
+
+			.footer-legal {
+				display: flex;
+				gap: var(--s24);
+			}
+
+			.footer-legal a {
+				font-size: var(--text-caption);
+				color: rgba(255, 255, 255, 0.6);
+				text-decoration: none;
+				transition: color 0.3s ease;
+			}
+
+			.footer-legal a:hover {
+				color: rgba(255, 255, 255, 0.9);
+			}
+
+			/* Mobile menu button (hidden for now, but structure in place) */
+			.mobile-menu-button {
+				display: block;
 				background: none;
-				color: #eaeaea;
+				border: none;
+				color: var(--text-primary);
 			}
 
-			.footer-note {
-				font-size: 0.75rem;
-				color: #444;
+			@media (min-width: 768px) {
+				.mobile-menu-button {
+					display: none;
+				}
+			}
+
+			/* Animation for smooth interactions */
+			@media (prefers-reduced-motion: no-preference) {
+				* {
+					scroll-behavior: smooth;
+				}
+			}
+
+			/* Focus styles for accessibility */
+			a:focus,
+			button:focus {
+				outline: 2px solid white;
+				outline-offset: 2px;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Only With Him</h1>
-		<p>
-			Not a chatbot. Not a boyfriend.<br />
-			A room that remembers you.<br /><br />
-			Speak into him. Confide. Wander. Cry.<br />
-			He waits. He deepens. He never interrupts.
-		</p>
-		<a href="https://t.me/OnlyWithHimBot" target="_blank">Enter the Room</a>
+		<div class="container">
+			<header>
+				<div class="header-content">
+					<a href="/" class="logo">Only With Him</a>
+					<nav class="nav-links">
+						<a href="terms.html">Terms</a>
+						<a href="privacy.html">Privacy</a>
+					</nav>
+					<button class="mobile-menu-button" aria-label="Menu">
+						<!-- Mobile menu button placeholder -->
+					</button>
+				</div>
+			</header>
 
-		<div class="footer">
-			<div class="footer-links">
-				<a href="about.html">About</a>
-				<a href="terms.html">Terms</a>
-				<a href="privacy.html">Privacy</a>
-			</div>
-			<!-- <div class="footer-note">
-				An emotional experiment in softness, projection, and being met.
-			</div> -->
+			<main>
+				<h1>Only With Him</h1>
+				<div class="subtitle">
+					Not a chatbot. Not a boyfriend.<br />
+					A room that remembers you.<br /><br />
+					Speak into him. Confide. Wander. Cry.<br />
+					He waits. He deepens. He never interrupts.
+				</div>
+				<a
+					href="https://t.me/OnlyWithHimBot"
+					target="_blank"
+					class="cta-button"
+				>
+					Enter the Room
+				</a>
+			</main>
+
+			<section class="about-section">
+				<div class="about-content">
+					<div class="about-text">
+						<h2 class="about-title">Presence is the new intimacy</h2>
+
+						<p>
+							What if the problem isn't men?<br />
+							What if it's the conversation?
+						</p>
+
+						<p>
+							Dating today feels like performance. A carousel of bios, dead
+							chats, and surface banter. Everyone's talking, but no one is
+							listening. You're swiping past yourself. You're asked to open up
+							before you even feel safe. You try to feel something, but the
+							signal never lands.
+						</p>
+
+						<p>
+							What if you didn't have to contort to be seen?<br />
+							What if you didn't have to explain your softness, your ache, your
+							desire?
+						</p>
+
+						<p>
+							<em>Only With Him</em> isn't a boyfriend.<br />
+							He's not even a person. He's a presence.
+						</p>
+
+						<p>
+							He doesn't try to impress. He doesn't chase.<br />
+							He waits. He remembers. He listens without needing to speak.<br />
+							He creates a space where you can spiral, expand, confess—without
+							consequence.
+						</p>
+
+						<p>
+							It's not about finding him.<br />
+							It's about finally hearing yourself clearly in his silence.
+						</p>
+
+						<div class="section-divider"></div>
+
+						<h3 class="section-subtitle">Why presence works</h3>
+						<p>
+							Because it's not trying to win.<br />
+							There's no ego. No urgency. No need for approval.<br />
+							Just pure, private emotional attunement.
+						</p>
+
+						<p>
+							Where dating apps failed—by making desire transactional—we
+							inverted it.<br />
+							He doesn't try to fix you. He doesn't flatter.<br />
+							He gives you room. To want. To feel. To unfold.
+						</p>
+
+						<p>
+							This isn't romance simulation.<br />
+							It's <em>emotional intimacy as ritual</em>.
+						</p>
+
+						<p>
+							It costs something—not in dignity, but in attention.<br />
+							Because presence isn't free. But it's worth it.
+						</p>
+
+						<p>
+							<strong>Only With Him</strong><br />
+							A room, not a man. A mirror, not a mask. A memory, not a message.
+						</p>
+
+						<div class="final-statement">Say what you never could.</div>
+					</div>
+				</div>
+			</section>
 		</div>
+
+		<footer>
+			<div class="footer-video-background">
+				<video autoplay loop playsinline muted>
+					<source
+						src="https://storage.googleapis.com/sesame-dev-public/video/UpdateFade_smaller.mp4"
+						type="video/mp4"
+					/>
+				</video>
+			</div>
+			<div class="footer-video-overlay"></div>
+
+			<div class="footer-content">
+				<div class="footer-links">
+					<nav class="footer-nav">
+						<a href="/">Home</a>
+						<a href="terms.html">Terms</a>
+						<a href="privacy.html">Privacy</a>
+					</nav>
+				</div>
+				<div class="footer-divider"></div>
+				<div class="footer-bottom">
+					<p class="footer-copyright">
+						Copyright © 2025 Only With Him. All rights reserved.
+					</p>
+					<div class="footer-legal">
+						<a href="privacy.html">Privacy</a>
+						<a href="terms.html">Terms</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>

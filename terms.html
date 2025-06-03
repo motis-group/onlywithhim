@@ -5,164 +5,508 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Terms of Service - Only with Him</title>
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<style>
-			body {
+			@font-face {
+				font-family: 'Season';
+				src: url('season-normal.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+
+			:root {
+				/* Spacing system */
+				--s6: 0.375rem;
+				--s12: 0.75rem;
+				--s16: 1rem;
+				--s18: 1.125rem;
+				--s20: 1.25rem;
+				--s24: 1.5rem;
+				--s28: 1.75rem;
+				--s32: 2rem;
+				--s40: 2.5rem;
+				--s60: 3.75rem;
+				--s80: 5rem;
+				--s96: 6rem;
+				--s120: 7.5rem;
+				--s200: 12.5rem;
+
+				/* Colors - Dark Theme */
+				--light1: #0e0e0e;
+				--main: #0e0e0e;
+				--text-primary: #eaeaea;
+				--text-secondary: #cccccc;
+				--text-tertiary: #999999;
+				--text-muted: #666666;
+
+				/* Border radius */
+				--radius-1: 12px;
+				--radius-2: 16px;
+
+				/* Typography */
+				--text-h1: 3.5rem;
+				--text-h2: 2.5rem;
+				--text-h4: 1.25rem;
+				--text-sidebar: 1rem;
+				--text-sidebar-light: 0.875rem;
+				--text-button: 0.875rem;
+				--text-caption: 0.75rem;
+			}
+
+			* {
 				margin: 0;
-				background-color: #0e0e0e;
-				color: #eaeaea;
-				font-family: 'Inter', sans-serif;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Season', 'Inter', -apple-system, BlinkMacSystemFont,
+					'Segoe UI', sans-serif;
+				background-color: var(--light1);
+				color: var(--text-primary);
 				line-height: 1.6;
-				padding: 2rem 1rem 4rem;
-				min-height: 100vh;
-				position: relative;
+				overflow-x: hidden;
 			}
 
 			.container {
-				max-width: 600px;
+				min-height: 100vh;
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				gap: var(--s20);
+				max-width: 120rem;
 				margin: 0 auto;
+				padding: 0 var(--s28);
+				position: relative;
 			}
 
-			.header {
-				text-align: center;
-				margin-bottom: 3rem;
+			@media (min-width: 768px) {
+				.container {
+					padding: 0 var(--s40);
+				}
 			}
 
-			.header h1 {
-				font-weight: 500;
-				font-size: 2.5rem;
-				margin: 0;
-				margin-bottom: 0.5rem;
+			@media (min-width: 1024px) {
+				.container {
+					padding: 0 var(--s80);
+				}
 			}
 
-			.header .back-link {
-				color: #666;
+			header {
+				grid-column: 1 / -1;
+				padding: var(--s18) 0;
+				position: sticky;
+				top: 0;
+				background-color: var(--light1);
+				z-index: 50;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			@media (min-width: 768px) {
+				header {
+					position: fixed;
+					top: var(--s200);
+					left: var(--s28);
+					width: auto;
+					background: transparent;
+					border: none;
+					padding: 0;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				header {
+					left: var(--s80);
+				}
+			}
+
+			.header-content {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			@media (min-width: 768px) {
+				.header-content {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: var(--s20);
+				}
+			}
+
+			.logo {
+				font-size: var(--text-sidebar);
+				font-weight: 600;
+				color: var(--text-primary);
 				text-decoration: none;
-				font-size: 0.9rem;
-				transition: color 0.2s;
 			}
 
-			.header .back-link:hover {
-				color: #eaeaea;
+			.nav-links {
+				display: none;
+			}
+
+			@media (min-width: 768px) {
+				.nav-links {
+					display: flex;
+					flex-direction: column;
+					gap: var(--s6);
+				}
+
+				.nav-links a {
+					font-size: var(--text-sidebar-light);
+					color: var(--text-muted);
+					text-decoration: none;
+					transition: all 0.3s ease;
+					opacity: 0.7;
+				}
+
+				.nav-links a:hover {
+					opacity: 1;
+					color: var(--text-primary);
+					font-weight: 630;
+				}
+			}
+
+			main {
+				grid-column: 1 / -1;
+				padding: var(--s80) 0;
+			}
+
+			@media (min-width: 768px) {
+				main {
+					grid-column: 4 / 12;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				main {
+					grid-column: 4 / 10;
+				}
+			}
+
+			.page-header {
+				text-align: center;
+				margin-bottom: var(--s60);
+			}
+
+			@media (min-width: 768px) {
+				.page-header {
+					text-align: left;
+				}
+			}
+
+			h1 {
+				font-size: clamp(2rem, 6vw, var(--text-h2));
+				font-weight: 600;
+				line-height: 1.1;
+				margin-bottom: var(--s16);
+				color: var(--text-primary);
+			}
+
+			.back-link {
+				color: var(--text-muted);
+				text-decoration: none;
+				font-size: var(--text-sidebar-light);
+				transition: color 0.3s ease;
+				opacity: 0.7;
+			}
+
+			.back-link:hover {
+				color: var(--text-primary);
+				opacity: 1;
 			}
 
 			.content {
 				font-size: 1rem;
-				font-weight: 300;
+				line-height: 1.7;
 			}
 
 			.content p {
-				margin-bottom: 1.5rem;
+				margin-bottom: var(--s24);
+				opacity: 0.6;
 			}
 
 			.content h2 {
-				font-weight: 500;
-				font-size: 1.2rem;
-				margin: 2rem 0 1rem 0;
-				color: #fff;
+				font-weight: 600;
+				font-size: var(--text-h4);
+				margin: var(--s40) 0 var(--s20) 0;
+				color: var(--text-primary);
 			}
 
-			.footer {
+			.content em {
+				font-style: italic;
+				color: var(--text-tertiary);
+				opacity: 0.8;
+			}
+
+			.content strong {
+				font-weight: 600;
+				color: var(--text-primary);
+			}
+
+			footer {
+				background: var(--main);
+				color: white;
+				padding: var(--s96) 0 var(--s80);
+				position: relative;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				margin-top: var(--s80);
+				overflow: hidden;
+				width: 100vw;
+				margin-left: calc(-50vw + 50%);
+			}
+
+			.footer-video-background {
 				position: absolute;
-				bottom: 0;
+				top: 0;
 				left: 0;
-				right: 0;
-				padding: 1rem;
-				background-color: #0e0e0e;
-				text-align: center;
-				border-top: 1px solid #222;
+				width: 100%;
+				height: 100%;
+				z-index: 0;
+			}
+
+			.footer-video-background video {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.footer-video-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.6);
+				z-index: 1;
+			}
+
+			.footer-content {
+				max-width: 120rem;
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				gap: var(--s40);
+				position: relative;
+				z-index: 2;
+				padding: 0 var(--s28);
+			}
+
+			@media (min-width: 768px) {
+				.footer-content {
+					padding: 0 var(--s40);
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.footer-content {
+					padding: 0 var(--s80);
+				}
 			}
 
 			.footer-links {
 				display: flex;
-				justify-content: center;
-				gap: 2rem;
-				margin-bottom: 0.5rem;
+				flex-direction: column;
+				gap: var(--s24);
 			}
 
-			.footer-links a {
-				color: #666;
+			@media (min-width: 768px) {
+				.footer-links {
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+
+			.footer-nav {
+				display: flex;
+				flex-direction: column;
+				gap: var(--s24);
+			}
+
+			@media (min-width: 768px) {
+				.footer-nav {
+					flex-direction: row;
+					gap: var(--s40);
+				}
+			}
+
+			.footer-nav a {
+				color: rgba(255, 255, 255, 0.8);
 				text-decoration: none;
-				font-size: 0.875rem;
-				transition: color 0.2s;
+				font-size: var(--text-sidebar-light);
+				transition: color 0.3s ease;
 			}
 
-			.footer-links a:hover {
-				color: #eaeaea;
+			.footer-nav a:hover {
+				color: white;
 			}
 
-			.footer-note {
-				font-size: 0.75rem;
-				color: #444;
+			.footer-divider {
+				height: 1px;
+				background: rgba(255, 255, 255, 0.2);
+				width: 100%;
+			}
+
+			.footer-bottom {
+				display: flex;
+				flex-direction: column;
+				gap: var(--s24);
+			}
+
+			@media (min-width: 768px) {
+				.footer-bottom {
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+
+			.footer-copyright {
+				font-size: var(--text-caption);
+				color: rgba(255, 255, 255, 0.6);
+			}
+
+			.footer-legal {
+				display: flex;
+				gap: var(--s24);
+			}
+
+			.footer-legal a {
+				font-size: var(--text-caption);
+				color: rgba(255, 255, 255, 0.6);
+				text-decoration: none;
+				transition: color 0.3s ease;
+			}
+
+			.footer-legal a:hover {
+				color: rgba(255, 255, 255, 0.9);
+			}
+
+			.mobile-menu-button {
+				display: block;
+				background: none;
+				border: none;
+				color: var(--text-primary);
+			}
+
+			@media (min-width: 768px) {
+				.mobile-menu-button {
+					display: none;
+				}
+			}
+
+			/* Focus styles for accessibility */
+			a:focus,
+			button:focus {
+				outline: 2px solid white;
+				outline-offset: 2px;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="header">
-				<h1>Terms of Service</h1>
-				<a href="index.html" class="back-link">← Back to Home</a>
-			</div>
+			<header>
+				<div class="header-content">
+					<a href="/" class="logo">Only With Him</a>
+					<nav class="nav-links">
+						<a href="terms.html">Terms</a>
+						<a href="privacy.html">Privacy</a>
+					</nav>
+					<button class="mobile-menu-button" aria-label="Menu">
+						<!-- Mobile menu button placeholder -->
+					</button>
+				</div>
+			</header>
 
-			<div class="content">
-				<p><em>Last updated: June 3, 2025</em></p>
+			<main>
+				<div class="page-header">
+					<h1>Terms of Service</h1>
+					<a href="index.html" class="back-link">← Back to Home</a>
+				</div>
 
-				<h2>1. Service Description</h2>
-				<p>
-					Only With Him provides an AI-powered conversational experience
-					designed for emotional support and companionship. The service is
-					provided "as is" for personal, non-commercial use.
-				</p>
+				<div class="content">
+					<p><em>Last updated: June 3, 2025</em></p>
 
-				<h2>2. User Conduct</h2>
-				<p>By using this service, you agree to:</p>
-				<p>
-					• Use the service responsibly and for its intended purpose<br />
-					• Not share personal information that could compromise your safety<br />
-					• Respect the emotional nature of the service and other users'
-					experiences
-				</p>
+					<h2>1. Service Description</h2>
+					<p>
+						Only With Him provides an AI-powered conversational experience
+						designed for emotional support and companionship. The service is
+						provided "as is" for personal, non-commercial use.
+					</p>
 
-				<h2>3. Privacy & Data</h2>
-				<p>
-					Your conversations are private. We do not store, analyze, or share
-					your personal conversations beyond what is necessary to provide the
-					service.
-				</p>
+					<h2>2. User Conduct</h2>
+					<p>By using this service, you agree to:</p>
+					<p>
+						• Use the service responsibly and for its intended purpose<br />
+						• Not share personal information that could compromise your
+						safety<br />
+						• Respect the emotional nature of the service and other users'
+						experiences
+					</p>
 
-				<h2>4. Limitations</h2>
-				<p>
-					This service is not a substitute for professional mental health care,
-					therapy, or medical advice. If you are experiencing a mental health
-					crisis, please contact appropriate emergency services or mental health
-					professionals.
-				</p>
+					<h2>3. Privacy & Data</h2>
+					<p>
+						Your conversations are private. We do not store, analyze, or share
+						your personal conversations beyond what is necessary to provide the
+						service.
+					</p>
 
-				<h2>5. Changes to Terms</h2>
-				<p>
-					We reserve the right to modify these terms at any time. Continued use
-					of the service constitutes acceptance of any changes.
-				</p>
+					<h2>4. Limitations</h2>
+					<p>
+						This service is not a substitute for professional mental health
+						care, therapy, or medical advice. If you are experiencing a mental
+						health crisis, please contact appropriate emergency services or
+						mental health professionals.
+					</p>
 
-				<h2>6. Contact</h2>
-				<p>
-					For questions about these terms, please contact us through the
-					appropriate channels.
-				</p>
-			</div>
+					<h2>5. Changes to Terms</h2>
+					<p>
+						We reserve the right to modify these terms at any time. Continued
+						use of the service constitutes acceptance of any changes.
+					</p>
+
+					<h2>6. Contact</h2>
+					<p>
+						For questions about these terms, please contact us through the
+						appropriate channels.
+					</p>
+				</div>
+			</main>
 		</div>
 
-		<div class="footer">
-			<div class="footer-links">
-				<a href="about.html">About</a>
-				<a href="terms.html">Terms</a>
-				<a href="privacy.html">Privacy</a>
+		<footer>
+			<div class="footer-video-background">
+				<video autoplay loop playsinline muted>
+					<source
+						src="https://storage.googleapis.com/sesame-dev-public/video/UpdateFade_smaller.mp4"
+						type="video/mp4"
+					/>
+				</video>
 			</div>
-			<!-- <div class="footer-note">
-				An emotional experiment in softness, projection, and being met.
-			</div> -->
-		</div>
+			<div class="footer-video-overlay"></div>
+
+			<div class="footer-content">
+				<div class="footer-links">
+					<nav class="footer-nav">
+						<a href="/">Home</a>
+						<a href="terms.html">Terms</a>
+						<a href="privacy.html">Privacy</a>
+					</nav>
+				</div>
+				<div class="footer-divider"></div>
+				<div class="footer-bottom">
+					<p class="footer-copyright">
+						Copyright © 2025 Only With Him. All rights reserved.
+					</p>
+					<div class="footer-legal">
+						<a href="privacy.html">Privacy</a>
+						<a href="terms.html">Terms</a>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>
